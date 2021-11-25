@@ -14,7 +14,7 @@ class Maze:
         return sum(map(sum, new_values))
 
     def calculate_values(self, maze_cell: MazeCell, discount: float):
-        neighbours = [neighbour[0] for neighbour in self.get_neighbouring_cells(self.maze_cells, maze_cell)]
+        neighbours = [neighbour[0] for neighbour in self.get_neighbouring_info(self.maze_cells, maze_cell)]
         new_value = maze_cell.calculate_values(neighbours, discount)
         return new_value
 
@@ -24,14 +24,14 @@ class Maze:
                 maze_cell.update(new_values[row][col])
 
     @staticmethod
-    def get_neighbouring_cells(maze_cells, maze_cell: MazeCell):
-        neighbours = [
+    def get_neighbouring_info(maze_cells, maze_cell: MazeCell):
+        info = [
             (Maze.get_cell(maze_cells, maze_cell, 0, -1), Action.UP),
             (Maze.get_cell(maze_cells, maze_cell, 1, 0), Action.RIGHT),
             (Maze.get_cell(maze_cells, maze_cell, 0, 1), Action.DOWN),
             (Maze.get_cell(maze_cells, maze_cell, -1, 0), Action.LEFT)
         ]
-        return neighbours
+        return info
     
     @staticmethod
     def get_cell(maze_cells, maze_cell: MazeCell, x: int, y: int):
